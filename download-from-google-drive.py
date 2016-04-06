@@ -121,6 +121,7 @@ def main():
     while request is not None:
         file_page = request.execute(http=http)
         page_counter += 1
+        page_file_counter = 0  # reset the paging file counter
 
         # determine the page at which to start processing.
         if page_counter >= args.start_page:
@@ -128,8 +129,14 @@ def main():
 
             for this_file in file_page['files']:
                 file_counter += 1
+                page_file_counter += 1
                 if we_should_process_this_file(this_file['name'], match_filenames):
-                    print("#== Processing {} file number {} on page {}".format(this_file['name'], file_counter, page_counter))
+                    print("#== Processing {} file number {} on page {}. {} files processed.".format(
+                        this_file['name'],
+                        page_file_counter,
+                        page_counter,
+                        file_counter
+                    ))
 
                     # download the file
                     download_request = drive_service.files().get_media(fileId=this_file['id'])
