@@ -83,4 +83,6 @@ python download-from-google-drive.py -f idofthegooglefolder -b my-bucket -k path
 
 ## Todos
 
-* [] Allow the S3 and Google drive steps to be decoupled. I.e. just download to a local directory
+* [ ] Allow the S3 and Google drive steps to be decoupled. I.e. just download to a local directory
+* [ ] Allow traversal of multiple directories.
+* [ ] Preserve directory structure in S3
