@@ -125,13 +125,13 @@ def main():
 
         # determine the page at which to start processing.
         if page_counter >= args.start_page:
-            print("######## Page {} ########".format(page_counter))
+            print(u"######## Page {} ########".format(page_counter))
 
             for this_file in file_page['files']:
                 file_counter += 1
                 page_file_counter += 1
                 if we_should_process_this_file(this_file['name'], match_filenames):
-                    print("#== Processing {} file number {} on page {}. {} files processed.".format(
+                    print(u"#== Processing {} file number {} on page {}. {} files processed.".format(
                         this_file['name'],
                         page_file_counter,
                         page_counter,
@@ -151,20 +151,20 @@ def main():
                     del pbar
 
                     # upload to bucket
-                    print("Uploading to S3")
+                    print(u"Uploading to S3")
                     s3.Bucket(args.bucket).put_object(
                         Key="{}{}".format(key_prefix, this_file['name']),
                         Body=fh.getvalue(),
                         ACL='public-read'
                     )
-                    print("\rUploaded to S3")
+                    print(u"Uploaded to S3")
                     fh.close()  # close the file handle to release memory
                 else:
-                    print("Do not need to process {}".format(this_file['name']))
+                    print(u"Do not need to process {}".format(this_file['name']))
 
         # stop if we have come to the last user specified page
         if args.end_page and page_counter == args.end_page:
-            print("Finished paging at page {}".format(page_counter))
+            print(u"Finished paging at page {}".format(page_counter))
             exit(0)
         # request the next page of files
         request = files.list_next(request, file_page)
